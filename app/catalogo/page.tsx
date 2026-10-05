@@ -14,6 +14,11 @@ type Producto = {
 export default function Catalogo() {
   const [productos, setProductos] = useState<Producto[]>([]);
   const [cargando, setCargando] = useState(true);
+  const [categoriaActiva, setCategoriaActiva] = useState<string | null>(null);
+useEffect(() => {
+  setCategoriaActiva(new URLSearchParams(window.location.search).get("categoria"));
+}, []);
+const visibles = categoriaActiva ? productos.filter((p) => p.categoria === categoriaActiva) : productos;
   // Revisa si el dueño tiene la sesión iniciada
 const [haySesion, setHaySesion] = useState(false);
 useEffect(() => {

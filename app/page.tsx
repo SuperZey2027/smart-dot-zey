@@ -23,6 +23,7 @@ useEffect(() => {
 }, []);
 // Marcas que aparecen en la cinta
 const marcas = ["Deye", "Huawei", "Victron Energy", "Longi", "Trina Solar", "JinkoSolar", "Soluna"];
+const categorias = ["Energía solar", "Iluminación", "Seguridad", "Domótica", "Material eléctrico"];
 // Control del video: arranca sin sonido (los navegadores solo dejan reproducir solo si está silenciado)
 const videoRef = useRef<HTMLVideoElement>(null);
 const [silenciado, setSilenciado] = useState(true);
@@ -55,7 +56,28 @@ const alternarSonido = () => {
           {/* Menú de Navegación Estilo smart dot zey */}
           <nav className="hidden md:flex items-center gap-15 text-sm font-bold text-slate-600">
             <a href="#" className="text-emerald-600">Inicio</a>
-            <a href="/catalogo" className="hover:text-slate-900">Catálogo</a>
+           <div className="relative group">
+  <a href="/catalogo" className="hover:text-slate-900 cursor-pointer">Categorías ▾</a>
+  <div className="absolute left-0 top-full hidden group-hover:block pt-2 z-50">
+    <div className="w-52 rounded-lg border border-slate-200 bg-white py-2 shadow-lg">
+      <a
+  href="/catalogo"
+  className="block px-4 py-2 text-sm font-bold text-slate-600 hover:bg-slate-100 hover:text-emerald-600"
+>
+  Todos los productos
+</a>
+      {categorias.map((c) => (
+        <a
+          key={c}
+          href={`/catalogo?categoria=${encodeURIComponent(c)}`}
+          className="block px-4 py-2 text-sm font-bold text-slate-600 hover:bg-slate-100 hover:text-emerald-600"
+        >
+          {c}
+        </a>
+      ))}
+    </div>
+  </div>
+</div>
             <a href="#" className="hover:text-slate-900">servicios</a>
           </nav>
 
