@@ -151,7 +151,8 @@ const alternarSonido = () => {
           </h1>
           <p className="text-sm md:text-base font-medium max-w-xl text-slate-200 leading-relaxed">
            
-            Somos una empresa líder en innovación solar. Protege tu hogar de los apagones y reduce tus planillas eléctricas con sistemas profesionales de ingeniería.
+           Una opción que ofrece la mejor Relación, Calidad y Precio, para Distribuidores y Clientes
+
           
           </p>
           <div className="pt-2">
