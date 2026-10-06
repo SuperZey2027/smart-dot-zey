@@ -5,6 +5,7 @@ import { useState, useEffect, useRef } from "react";
 export default function Home() {
   const [cartCount, setCartCount] = useState(0);
   const [menuAbierto, setMenuAbierto] = useState(false);
+  const [menuMovil, setMenuMovil] = useState(false);
   const [tiempo, setTiempo] = useState({ d: 0, h: 0, m: 0, s: 0 });
 
 useEffect(() => {
@@ -46,62 +47,95 @@ const alternarSonido = () => {
 
       {/* 2. NAVBAR PRINCIPAL */}
       <header translate="no" className="sticky top-0 z-50 bg-white border-b border-slate-200 shadow-sm">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-          
-          {/* Logo Corporativo */}
-          <div className="flex items-center gap-2">
-            <img src="/logosmart.jpeg" alt="Smart Dot Zey" className="h-10 w-10 rounded-full object-cover" />
-            <span className="text-xl font-black tracking-tight text-slate-900 uppercase">Smart Dot Zey</span>
-          </div>
+  <div className="mx-auto flex max-w-7xl items-center justify-between px-4 md:px-6 py-3 md:py-4">
 
-          {/* Menú de Navegación Estilo smart dot zey */}
-          <nav className="flex items-center gap-4 md:gap-15 text-sm font-bold text-slate-600">
-  <a href="#" className="text-emerald-600">Inicio</a>
+    {/* Logo corporativo */}
+    <div className="flex items-center gap-2">
+      <img src="/logosmart.jpeg" alt="Smart Dot Zey" className="h-10 w-10 rounded-full object-cover" />
+      <span className="text-base md:text-xl font-black tracking-tight text-slate-900 uppercase whitespace-nowrap">Smart Dot Zey</span>
+    </div>
 
-  <div className="relative">
-    <button
-      onClick={() => setMenuAbierto(!menuAbierto)}
-      className="hover:text-slate-900 cursor-pointer"
-    >
-      Categorías ▾
-    </button>
-    {menuAbierto && (
-      <>
-        {/* Capa invisible: al tocar fuera del menú, se cierra */}
-        <div className="fixed inset-0 z-40" onClick={() => setMenuAbierto(false)}></div>
-        <div className="absolute left-0 top-full pt-2 z-50">
-          <div className="w-52 rounded-lg border border-slate-200 bg-white py-2 shadow-lg">
-            <a
-              href="/catalogo"
-              onClick={() => setMenuAbierto(false)}
-              className="block px-4 py-2 text-sm font-bold text-slate-600 hover:bg-slate-100 hover:text-emerald-600"
-            >
-              Todos los productos
-            </a>
-            {categorias.map((c) => (
-              <a
-                key={c}
-                href={`/catalogo?categoria=${encodeURIComponent(c)}`}
-                onClick={() => setMenuAbierto(false)}
-                className="block px-4 py-2 text-sm font-bold text-slate-600 hover:bg-slate-100 hover:text-emerald-600"
-              >
-                {c}
-              </a>
-            ))}
-          </div>
-        </div>
-      </>
-    )}
+    {/* Menú para computadora: solo se ve en pantallas grandes */}
+    <nav className="hidden md:flex items-center gap-15 text-sm font-bold text-slate-600">
+      <a href="#" className="text-emerald-600">Inicio</a>
+
+      <div className="relative">
+        <button
+          onClick={() => setMenuAbierto(!menuAbierto)}
+          className="hover:text-slate-900 cursor-pointer"
+        >
+          Categorías ▾
+        </button>
+        {menuAbierto && (
+          <>
+            <div className="fixed inset-0 z-40" onClick={() => setMenuAbierto(false)}></div>
+            <div className="absolute left-0 top-full pt-2 z-50">
+              <div className="w-52 rounded-lg border border-slate-200 bg-white py-2 shadow-lg">
+                <a
+                  href="/catalogo"
+                  onClick={() => setMenuAbierto(false)}
+                  className="block px-4 py-2 text-sm font-bold text-slate-600 hover:bg-slate-100 hover:text-emerald-600"
+                >
+                  Todos los productos
+                </a>
+                {categorias.map((c) => (
+                  <a
+                    key={c}
+                    href={`/catalogo?categoria=${encodeURIComponent(c)}`}
+                    onClick={() => setMenuAbierto(false)}
+                    className="block px-4 py-2 text-sm font-bold text-slate-600 hover:bg-slate-100 hover:text-emerald-600"
+                  >
+                    {c}
+                  </a>
+                ))}
+              </div>
+            </div>
+          </>
+        )}
+      </div>
+
+      <a href="#" className="hover:text-slate-900">servicios</a>
+    </nav>
+
+    {/* Derecha: Iniciar sesión y botón de las 3 rayitas (solo celular) */}
+    <div className="flex items-center gap-3 text-slate-700">
+      <button className="hover:text-slate-900 text-lg">
+        👤<span className="hidden sm:inline"> Iniciar Secion</span>
+      </button>
+      <button
+        onClick={() => setMenuMovil(!menuMovil)}
+        aria-label="Abrir menú"
+        className="md:hidden p-2"
+      >
+        <svg viewBox="0 0 24 24" className="h-7 w-7 stroke-slate-800" fill="none" strokeWidth="2.5" strokeLinecap="round">
+          <path d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
   </div>
 
-  <a href="#" className="hover:text-slate-900">servicios</a>
-</nav>
-          {/* Iniciar Secion */}
-          <div className="flex items-center gap-4 text-slate-700">
-  <button className="hover:text-slate-900 text-lg">👤 Iniciar Secion</button>
-</div>
-        </div>
-      </header>
+  {/* Menú desplegable del celular */}
+  {menuMovil && (
+    <div className="md:hidden border-t border-slate-200 bg-white px-6 py-4 text-sm font-bold text-slate-600">
+      <a href="#" onClick={() => setMenuMovil(false)} className="block py-2 text-emerald-600">Inicio</a>
+
+      <p className="pt-3 pb-1 text-xs font-black uppercase tracking-widest text-slate-400">Categorías</p>
+      <a href="/catalogo" onClick={() => setMenuMovil(false)} className="block py-2 pl-3">Todos los productos</a>
+      {categorias.map((c) => (
+        <a
+          key={c}
+          href={`/catalogo?categoria=${encodeURIComponent(c)}`}
+          onClick={() => setMenuMovil(false)}
+          className="block py-2 pl-3"
+        >
+          {c}
+        </a>
+      ))}
+
+      <a href="#" onClick={() => setMenuMovil(false)} className="block py-2 pt-3">servicios</a>
+    </div>
+  )}
+</header>
             {/* ================= PARTE 2: HERO BANNER (EL PODER DEL SOL) ================= */}
       <section className="relative h-[450px] md:h-[500px] text-white flex items-start pt-6 md:pt-8">
         {/* Capa oscura translúcida sobre el fondo */}
