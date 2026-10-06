@@ -136,7 +136,7 @@ const alternarSonido = () => {
     </div>
   )}
 </header>
-            {/* ================= PARTE 2: HERO BANNER (EL PODER DEL SOL) ================= */}
+            {/* ================= PARTE 2: HERO BANNER (TECNOLOGÍA ELÉCTRICA, DOMÓTICA Y SEGURIDAD INTELIGENTE) ================= */}
       <section className="relative h-[450px] md:h-[500px] text-white flex items-start pt-6 md:pt-8">
         {/* Capa oscura translúcida sobre el fondo */}
 <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/10 to-transparent z-10"></div>
@@ -145,10 +145,10 @@ const alternarSonido = () => {
           <span className="inline-flex items-center rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-bold uppercase tracking-wider text-emerald-400 ring-1 ring-inset ring-emerald-500/20">
             Energía ☀️ Seguridad 📹 Domótica 🏠 Nacional 🇪🇨 Cotiza al privado 📩 
           </span>
-          <h1 className="text-4xl md:text-6xl font-black uppercase tracking-tight leading-none">
-            El poder <br />
-            <span className="text-emerald-500">del sol</span>
-          </h1>
+          <h1 className="text-3xl md:text-5xl font-black uppercase tracking-tight leading-tight max-w-3xl">
+  Tecnología eléctrica, <br />
+  <span className="text-emerald-500">Domótica y seguridad inteligente</span>
+</h1>
           <p className="text-sm md:text-base font-medium max-w-xl text-slate-200 leading-relaxed">
            
            Una opción que ofrece la mejor Relación, Calidad y Precio, para Distribuidores y Clientes
