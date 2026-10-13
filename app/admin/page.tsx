@@ -163,23 +163,17 @@ export default function Admin() {
         descuento: porcentajeDescuento, // 🆕 Pasamos el número limpio ya validado
       };
 
-      if (editando) {
-        // 🆕 Para evitar errores en la actualización, pasamos exactamente el ID y forzamos el formato
+           if (editando) {
         const { error } = await supabase
           .from("productos")
-          .update({
-            nombre: datos.nombre,
-            precio: datos.precio,
-            categoria: datos.categoria,
-            imagen_url: datos.imagen_url,
-            descuento: datos.descuento
-          })
+          .update(datos)
           .eq("id", editando.id);
         if (error) throw error;
       } else {
         const { error } = await supabase.from("productos").insert(datos);
         if (error) throw error;
       }
+
 
 
 
