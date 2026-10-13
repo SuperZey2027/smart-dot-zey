@@ -152,21 +152,36 @@ export default function Admin() {
         imagenUrl = url.publicUrl;
       }
 
+            // 🆕 Aseguramos que el descuento sea estrictamente un número entero válido (entre 0 y 100)
+      const porcentajeDescuento = Math.min(100, Math.max(0, Math.floor(Number(descuento)) || 0));
+
       const datos = {
         nombre: nombre.trim(),
         precio: Number(precio),
         categoria: categoria.trim() || null,
         imagen_url: imagenUrl,
-         descuento: Number(descuento) || 0,
+        descuento: porcentajeDescuento, // 🆕 Pasamos el número limpio ya validado
       };
 
       if (editando) {
-        const { error } = await supabase.from("productos").update(datos).eq("id", editando.id);
+        // 🆕 Para evitar errores en la actualización, pasamos exactamente el ID y forzamos el formato
+        const { error } = await supabase
+          .from("productos")
+          .update({
+            nombre: datos.nombre,
+            precio: datos.precio,
+            categoria: datos.categoria,
+            imagen_url: datos.imagen_url,
+            descuento: datos.descuento
+          })
+          .eq("id", editando.id);
         if (error) throw error;
       } else {
         const { error } = await supabase.from("productos").insert(datos);
         if (error) throw error;
       }
+
+
 
       // Si se cambió la foto, borra la anterior del almacén para no acumular archivos
       if (fotoAnterior) {
