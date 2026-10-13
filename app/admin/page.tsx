@@ -50,6 +50,8 @@ export default function Admin() {
   const [inputKey, setInputKey] = useState(0); // sirve para vaciar el selector de foto
   const [guardando, setGuardando] = useState(false);
   const [mensaje, setMensaje] = useState("");
+  const [descuento, setDescuento] = useState("");
+
 
   // Si tiene un producto, el formulario está en modo "editar"; si es null, está en modo "nuevo"
   const [editando, setEditando] = useState<Producto | null>(null);
@@ -91,12 +93,15 @@ export default function Admin() {
 
   // Vacía el formulario y vuelve al modo "nuevo producto"
   function limpiarFormulario() {
+    
     setEditando(null);
     setNombre("");
     setPrecio("");
     setCategoria("");
+    setDescuento("");
     setArchivo(null);
     setInputKey((k) => k + 1);
+    
   }
 
   // Carga los datos de un producto en el formulario para modificarlo
@@ -152,6 +157,7 @@ export default function Admin() {
         precio: Number(precio),
         categoria: categoria.trim() || null,
         imagen_url: imagenUrl,
+         descuento: Number(descuento) || 0,
       };
 
       if (editando) {
@@ -272,6 +278,22 @@ export default function Admin() {
               )}
             </select>
           </div>
+                    {/* 🆕 CASILLERO DIGITAL PARA INGRESAR EL PORCENTAJE DE OFERTA */}
+          <div className="flex flex-col gap-1 mt-2">
+            <label className="text-xs font-black text-slate-700 uppercase tracking-wider pl-1">
+              Porcentaje de Descuento
+            </label>
+            <input
+              type="number"
+              min="0"
+              max="100"
+              placeholder="Ej: 10, 15, 25... (Dejar en 0 si no tiene oferta)"
+              value={descuento}
+              onChange={(e) => setDescuento(e.target.value)}
+              className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all bg-slate-50/50"
+            />
+          </div>
+
 
           {/* Al editar, muestra la foto actual */}
           {editando?.imagen_url && (
